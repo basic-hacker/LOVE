@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Love Me Page </title>
+
+    <style>
+
+        body {
+
+            font-family: 'Arial', sans-serif;
+
+            background: url('bg-pic.jpg') no-repeat center center fixed;
+
+            background-size: cover;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            margin: 0;
+
+            position: relative;
+
+            overflow: hidden;
+
+            cursor: url('heart-cursor.png'), auto;
+
+        }
+
+        .container {
+
+            text-align: center;
+
+            z-index: 10;
+
+        }
+
+        h1 {
+
+            font-size: 3em;
+
+            color: #ff7070;
+
+            margin-bottom: 20px;
+
+        }
+
+        .button-container {
+
+            margin-top: 30px;
+
+        }
+
+        button {
+
+            padding: 15px 30px;
+
+            font-size: 1.5em;
+
+            margin: 10px;
+
+            cursor: pointer;
+
+            background-color: #ff6666;
+
+            border: none;
+
+            border-radius: 10px;
+
+            color: white;
+
+            transition: transform 0.2s, background-color 0.3s;
+
+            font-weight: bold;
+
+        }
+
+        button:hover {
+
+            transform: scale(1.1);
+
+            background-color: #ff4d4d;
+
+        }
+
+        #noBtn {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+        }
+
+        .popup {
+
+            position: absolute;
+
+            width: 250px;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+            text-align: center;
+
+            display: none;
+
+            z-index: 20;
+
+            animation: fadeIn 0.5s;
+
+        }
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+        .heart {
+
+            position: absolute;
+
+            width: 100px;
+
+            height: 100px;
+
+            background: red;
+
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+
+            animation: pop 0.5s forwards;
+
+        }
+
+        @keyframes pop {
+
+            from { transform: scale(1); }
+
+            to { transform: scale(1.5); opacity: 0; }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Do you love me? 💖</h1>
+
+        <div class="button-container">
+
+            <button id="yesBtn" onclick="showLove()">Yes</button>
+
+            <button id="noBtn" onmouseover="moveNo()">No</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        function moveNo() {
+
+            const noBtn = document.getElementById('noBtn');
+
+            noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+
+            noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+
+        }
+
+        const messages = [
+
+            { text: "I like you! ❤️", color: "#ff9999" },
+
+            { text: "You make my heart smile! 😊", color: "#ffcc99" },
+
+            { text: "Love is in the air! 💕", color: "#ffff99" },
+
+            { text: "You are amazing! 🌟", color: "#99ff99" },
+
+            { text: "I adore you! 💖", color: "#99ccff" },
+
+            { text: "You light up my life! ✨", color: "#cc99ff" },
+
+            { text: "You are my sunshine! ☀️", color: "#ffccff" },
+
+            { text: "Forever and always! 💞", color: "#ff6666" },
+
+            { text: "You make me so happy! 😍", color: "#66ffcc" },
+
+            { text: "You're my favorite person! 🥰", color: "#6699ff" },
+
+            { text: "You have my heart! 💘", color: "#ffb3b3" },
+
+            { text: "My love for you is endless! ♾️", color: "#ffccff" },
+
+            { text: "You make every day better! 🌈", color: "#ffb3cc" },
+
+            { text: "You are my dream come true! 🌠", color: "#ff9999" },
+
+            { text: "Your smile brightens my day! ☀️", color: "#ffcc99" },
+
+            { text: "Together, we are unstoppable! 🚀", color: "#ffff99" },
+
+            { text: "You're the reason I believe in love! ❤️", color: "#99ff99" },
+
+            { text: "With you, I am home! 🏡", color: "#6699ff" },
+
+            { text: "You are my happily ever after! 🥳", color: "#99ccff" },
+
+            { text: "You stole my heart, and I don’t want it back! 💞", color: "#cc99ff" }
+
+        ];
+
+        function showLove() {
+
+            for (let i = 0; i < 5; i++) {
+
+                createPopup();
+
+            }
+
+            setInterval(() => {
+
+                for (let i = 0; i < 5; i++) {
+
+                    replacePopup();
+
+                }
+
+            }, 3000);
+
+        }
+
+        function createPopup() {
+
+            const message = messages[Math.floor(Math.random() * messages.length)];
+
+            const popup = document.createElement('div');
+
+            popup.className = 'popup';
+
+            popup.style.background = message.color;
+
+            const x = Math.random() * (window.innerWidth - 250);
+
+            const y = Math.random() * (window.innerHeight - 100);
+
+            popup.style.left = `${x}px`;
+
+            popup.style.top = `${y}px`;
+
+            popup.innerText = message.text;
+
+            popup.style.display = 'block';
+
+            document.body.appendChild(popup);
+
+        }
+
+        function replacePopup() {
+
+            const popups = document.querySelectorAll('.popup');
+
+            if (popups.length > 0) {
+
+                const index = Math.floor(Math.random() * popups.length);
+
+                const message = messages[Math.floor(Math.random() * messages.length)];
+
+                popups[index].style.background = message.color;
+
+                popups[index].innerText = message.text;
+
+            }
+
+        }
+
+        document.addEventListener('mousemove', (e) => {
+
+            createHeartDrop(e.clientX, e.clientY);
+
+        });
+
+        function createHeartDrop(x, y) {
+
+            const heartDrop = document.createElement('div');
+
+            heartDrop.className = 'heart';
+
+            heartDrop.style.left = `${x - 50}px`;
+
+            heartDrop.style.top = `${y - 50}px`;
+
+            document.body.appendChild(heartDrop);
+
+            setTimeout(() => {
+
+                heartDrop.remove();
+
+            }, 1000);
+
+        }
+
+        document.addEventListener('click', (e) => {
+
+            createLargeHeart(e.clientX, e.clientY);
+
+        });
+
+        function createLargeHeart(x, y) {
+
+            const largeHeart = document.createElement('div');
+
+            largeHeart.className = 'heart';
+
+            largeHeart.style.width = '200px';
+
+            largeHeart.style.height = '200px';
+
+            largeHeart.style.left = `${x - 100}px`;
+
+            largeHeart.style.top = `${y - 100}px`;
+
+            document.body.appendChild(largeHeart);
+
+            setTimeout(() => {
+
+                largeHeart.remove();
+
+            }, 500);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
